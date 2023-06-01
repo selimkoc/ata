@@ -130,7 +130,7 @@ class Router
 
     foreach ($this->posts as $r) :
 
-      add_action(Config::TAY_WP_FORM_POST_ACTION_PREFIX . $r->route, function () use ($r) {
+      add_action(Config::WP_FORM_POST_ACTION_PREFIX . $r->route, function () use ($r) {
 
         $r->class = TAY_PLUGIN_NAMESPACE . "\\" . $r->class;
 
