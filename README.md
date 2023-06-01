@@ -1,0 +1,1 @@
+Tay WP is a base plugin for developing custom MVC Wordpress plugins
