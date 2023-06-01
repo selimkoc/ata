@@ -137,9 +137,9 @@ class Router
         // Catch exception inside construct method of class
         try {
 
-          if (!isset($_POST['action']) || !isset($_POST['security-verify'])) throw new \Exception(NO_PERMISSION);
+          if (!isset($_POST['action']) || !isset($_POST['security-verify'])) throw new \Exception(TAY_NO_PERMISSION);
 
-          if (!wp_verify_nonce($_POST['security-verify'], $r->route)) throw new \Exception(NO_PERMISSION);
+          if (!wp_verify_nonce($_POST['security-verify'], $r->route)) throw new \Exception(TAY_NO_PERMISSION);
 
           $controller = new $r->class();
         } catch (\Exception $e) {
