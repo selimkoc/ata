@@ -5,7 +5,6 @@ namespace Ata;
 class Post_Router extends Router
 {
 
-
   public function main()
   {
     // Wordpress Admin Posts  

@@ -40,7 +40,7 @@ class Router
 
   protected function set_controller_name()
   {
-    $this->controller = ATA_PLUGIN_NAMESPACE . "\\" . $this->route->class;
+    $this->controller = Config::$my_plugin_namespace . "\\" . $this->route->class;
   }
 
   protected function check_permissions()

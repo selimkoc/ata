@@ -20,7 +20,6 @@ require_once(__DIR__ . '/core/class-controller.php');
 require_once(__DIR__ . '/core/class-model.php');
 require_once(__DIR__ . '/core/class-api.php');
 
-
 // ROUTERS
 require_once(__DIR__ . '/main/class-router.php');
 require_once(__DIR__ . '/main/routers/class-ajax.php');

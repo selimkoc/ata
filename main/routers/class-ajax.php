@@ -6,7 +6,6 @@ class Ajax_Router extends Router
 {
   private $prefix;
 
-
   public function main()
   {
     // Wordpress Ajax Posts  
@@ -40,7 +39,7 @@ class Ajax_Router extends Router
   protected function create_controller()
   {
 
-    $this->route->class = ATA_PLUGIN_NAMESPACE . "\\" . $this->route->class;
+    $this->route->class = Config::$my_plugin_namespace . "\\" . $this->route->class;
 
     // Catch exception inside construct method of class
     try {
