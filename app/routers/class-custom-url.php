@@ -1,6 +1,6 @@
 <?php
 
-namespace Ata;
+namespace ATA;
 
 class Custom_Url_Router extends Router
 {
@@ -76,7 +76,7 @@ class Custom_Url_Router extends Router
 
   protected function initiate_controller()
   {
-    // Catch exception inside construct method of class
+
     try {
       $this->controller = new $this->controller();
     } catch (\Exception $e) {

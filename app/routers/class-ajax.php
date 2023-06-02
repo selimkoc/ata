@@ -1,6 +1,6 @@
 <?php
 
-namespace Ata;
+namespace ATA;
 
 class Ajax_Router extends Router
 {

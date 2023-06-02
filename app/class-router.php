@@ -1,10 +1,9 @@
 <?php
 
-namespace Ata;
+namespace ATA;
 
 class Router
 {
-
   public $routes;
   public $posts;
   public $ajaxs;
@@ -18,6 +17,7 @@ class Router
 
   protected function __construct()
   {
+    // Default permissions 
     $this->permissions[] = ['rule' => 'guests', 'callback' => 'is_user_logged_in'];
     $this->permissions[] = ['rule' => 'members', 'callback' => '!is_user_logged_in'];
   }
@@ -32,9 +32,16 @@ class Router
 
   protected function create_rule()
   {
+    // Add prefix to the route
     $rule = '(' . $this->route->route;
-    for ($i = 0; $i < $this->route->parameters; $i++) $rule .= '/[^/]*';
+
+    // Add number of parameters to the route
+    for ($i = 0; $i < $this->route->parameters; $i++)
+      $rule .= '/[^/]*';
+
+    // Add suffix to the route        
     $rule .= ')/?$';
+
     return $rule;
   }
 

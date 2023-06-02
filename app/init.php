@@ -1,6 +1,6 @@
 <?php
 
-namespace Ata;
+namespace ATA;
 // CONFIGURATION
 require_once(ATA_PLUGIN_DIR . '/config/class-config.php');
 
