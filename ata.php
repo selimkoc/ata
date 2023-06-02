@@ -2,8 +2,8 @@
 
 /*
    Plugin Name: Ata 
-   Plugin URI: https://github.com/selimkoc/tay_wp
-   description: A simple MVC architecture base plugin for WordPress.
+   Plugin URI: https://github.com/selimkoc/ata
+   description: Ata is a simple MVC architecture base plugin for WordPress.
    Version: 1.0
    Author: Selim Koc
    Author URI: https://www.selimkoc.com
@@ -19,6 +19,10 @@ require_once(__DIR__ . '/config/class-config.php');
 require_once(__DIR__ . '/core/class-controller.php');
 require_once(__DIR__ . '/core/class-model.php');
 require_once(__DIR__ . '/core/class-api.php');
+require_once(__DIR__ . '/core/class-router.php');
 
-// ROUTER
-require_once(__DIR__ . '/main/class-router.php');
+// ROUTERS
+require_once(__DIR__ . '/main/routers/class-ajax.php');
+require_once(__DIR__ . '/main/routers/class-api.php');
+require_once(__DIR__ . '/main/routers/class-custom-urls.php');
+require_once(__DIR__ . '/main/routers/class-post.php');

@@ -39,7 +39,7 @@ class Controller
 
     // throw exception if no permission and $throw_exception is true
     if ($has_permission == false && $throw_exception == true)
-      throw new \Exception(NO_PERMISSION);
+      throw new \Exception("Permission denied", 1);
 
     return $has_permission;
   }
