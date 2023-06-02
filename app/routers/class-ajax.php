@@ -6,9 +6,10 @@ class Ajax_Router extends Router
 {
   private $prefix;
 
-  public function main()
+  protected function __construct($ajaxs)
   {
-    // Wordpress Ajax Posts  
+    parent::__construct();
+    $this->ajaxs = $ajaxs;
     $this->add_ajax_routes();
   }
 
@@ -27,16 +28,16 @@ class Ajax_Router extends Router
 
   protected function add_action()
   {
+    add_action($this->prefix . $this->route->route, $this->actions());
+  }
+  protected function actions()
+  {
+    $this->initiate_controller();
 
-    add_action($this->prefix . $this->route->route, function () use ($this) {
-
-      $this->create_controller();
-
-      $this->call_method();
-    });
+    $this->call_method();
   }
 
-  protected function create_controller()
+  protected function initiate_controller()
   {
 
     $this->route->class = Config::$my_plugin_namespace . "\\" . $this->route->class;
@@ -70,8 +71,8 @@ class Ajax_Router extends Router
   {
 
     if (isset($this->route->guest) && $this->route->guest === true)
-      $this->prefix =  Config::WP_AJAX_GUEST_ACTION_PREFIX;
+      $this->prefix = Config::$wp_ajax_guest_action_prefix;
     else
-      $this->prefix = Config::WP_AJAX_ACTION_PREFIX;
+      $this->prefix = Config::$wp_ajax_action_prefix;
   }
 }

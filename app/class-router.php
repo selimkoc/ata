@@ -16,11 +16,18 @@ class Router
 
   protected $route;
 
-
   protected function __construct()
   {
     $this->permissions[] = ['rule' => 'guests', 'callback' => 'is_user_logged_in'];
     $this->permissions[] = ['rule' => 'members', 'callback' => '!is_user_logged_in'];
+  }
+
+  public function main()
+  {
+    if (!empty($this->routes) && count($this->routes)) new Custom_Url_Router($this->routes);
+    if (!empty($this->posts) && count($this->posts)) new Post_Router($this->posts);
+    if (!empty($this->ajaxs) && count($this->ajaxs)) new Ajax_Router($this->ajaxs);
+    if (!empty($this->apis) && count($this->apis)) new Api_Router($this->apis);
   }
 
   protected function create_rule()
@@ -33,10 +40,8 @@ class Router
 
   protected function handle_exception($e)
   {
-    // TODO : May return Json object which has ID(as error code) and text
     echo $e->getMessage();
   }
-
 
   protected function set_controller_name()
   {

@@ -2,11 +2,12 @@
 
 namespace Ata;
 
-class Custom_Urls_Router extends Router
+class Custom_Url_Router extends Router
 {
-  public function main()
+  protected function __construct($routes)
   {
-    // Custom URLS
+    parent::__construct();
+    $this->routes = $routes;
     $this->add_template_include();
     $this->add_rewrite_rules();
     $this->add_query_vars();
@@ -25,7 +26,7 @@ class Custom_Urls_Router extends Router
 
           $this->set_controller_name();
 
-          $this->create_controller();
+          $this->initiate_controller();
 
           $this->call_method();
 
@@ -73,7 +74,7 @@ class Custom_Urls_Router extends Router
   }
 
 
-  protected function create_controller()
+  protected function initiate_controller()
   {
     // Catch exception inside construct method of class
     try {
@@ -107,8 +108,8 @@ class Custom_Urls_Router extends Router
 
     $ata =  (object)[];
 
-    $ata->message = $e->getMessage();
+    $ata->exception = $e;
 
-    return get_template_directory() . '/templates/exception.php';
+    return Config::$view_path . 'exception.php';
   }
 }

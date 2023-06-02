@@ -4,11 +4,14 @@ namespace Ata;
 
 class Api_Router extends Router
 {
-  public function main()
+
+  protected function __construct($apis)
   {
-    // Wordpress Add Custom Rest Apis
+    parent::__construct();
+    $this->apis = $apis;
     $this->add_api_routes();
   }
+
 
   protected function add_api_routes()
   {

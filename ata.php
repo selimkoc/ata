@@ -12,17 +12,6 @@
 
 namespace Ata;
 
-// CONFIGURATION
-require_once(__DIR__ . '/config/class-config.php');
+define('Ata\ATA_PLUGIN_DIR', __DIR__);
 
-// CORE CLASSES
-require_once(__DIR__ . '/core/class-controller.php');
-require_once(__DIR__ . '/core/class-model.php');
-require_once(__DIR__ . '/core/class-api.php');
-
-// ROUTERS
-require_once(__DIR__ . '/main/class-router.php');
-require_once(__DIR__ . '/main/routers/class-ajax.php');
-require_once(__DIR__ . '/main/routers/class-api.php');
-require_once(__DIR__ . '/main/routers/class-custom-urls.php');
-require_once(__DIR__ . '/main/routers/class-post.php');
+require_once(ATA_PLUGIN_DIR . '/app/init.php');

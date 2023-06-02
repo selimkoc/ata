@@ -5,9 +5,10 @@ namespace Ata;
 class Post_Router extends Router
 {
 
-  public function main()
+  protected function __construct($posts)
   {
-    // Wordpress Admin Posts  
+    parent::__construct();
+    $this->posts = $posts;
     $this->add_post_routes();
   }
   protected function add_post_routes()
@@ -18,18 +19,19 @@ class Post_Router extends Router
 
   protected function add_action()
   {
-
-    add_action(Config::WP_FORM_POST_ACTION_PREFIX . $this->route->route, function () use ($this) {
-
-      $this->set_controller_name();
-
-      $this->create_controller();
-
-      $this->call_method();
-    });
+    add_action(Config::$wp_form_post_action_prefix . $this->route->route, $this->actions());
   }
 
-  protected function create_controller()
+  protected function actions()
+  {
+    $this->set_controller_name();
+
+    $this->initiate_controller();
+
+    $this->call_method();
+  }
+
+  protected function initiate_controller()
   {
 
     // Catch exception inside construct method of class
