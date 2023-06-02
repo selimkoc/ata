@@ -1,6 +1,6 @@
 <?php
 
-namespace Tay;
+namespace Ata;
 
 class Router
 {
@@ -41,7 +41,7 @@ class Router
 
         if (get_query_var($r->route) != false || get_query_var($r->route) != '') {
 
-          $r->class = TAY_PLUGIN_NAMESPACE . "\\" . $r->class;
+          $r->class = ATA_PLUGIN_NAMESPACE . "\\" . $r->class;
 
           // Catch exception inside construct method of class
           try {
@@ -132,14 +132,14 @@ class Router
 
       add_action(Config::WP_FORM_POST_ACTION_PREFIX . $r->route, function () use ($r) {
 
-        $r->class = TAY_PLUGIN_NAMESPACE . "\\" . $r->class;
+        $r->class = ATA_PLUGIN_NAMESPACE . "\\" . $r->class;
 
         // Catch exception inside construct method of class
         try {
 
-          if (!isset($_POST['action']) || !isset($_POST['security-verify'])) throw new \Exception(TAY_NO_PERMISSION);
+          if (!isset($_POST['action']) || !isset($_POST['security-verify'])) throw new \Exception(ATA_NO_PERMISSION);
 
-          if (!wp_verify_nonce($_POST['security-verify'], $r->route)) throw new \Exception(TAY_NO_PERMISSION);
+          if (!wp_verify_nonce($_POST['security-verify'], $r->route)) throw new \Exception(ATA_NO_PERMISSION);
 
           $controller = new $r->class();
         } catch (\Exception $e) {
@@ -172,7 +172,7 @@ class Router
       else $prefix = Config::WP_AJAX_ACTION_PREFIX;
 
       add_action($prefix . $r->route, function () use ($r) {
-        $r->class = TAY_PLUGIN_NAMESPACE . "\\" . $r->class;
+        $r->class = ATA_PLUGIN_NAMESPACE . "\\" . $r->class;
 
         // Catch exception inside construct method of class
         try {
@@ -206,7 +206,7 @@ class Router
 
       foreach ($this->apis as $r) :
 
-        $r->class = TAY_PLUGIN_NAMESPACE . "\\" . $r->class;
+        $r->class = ATA_PLUGIN_NAMESPACE . "\\" . $r->class;
         register_rest_route($r->api_version, $r->route, array(
           'methods' => $r->api_method,
           'callback' => array(new $r->class(), $r->method),

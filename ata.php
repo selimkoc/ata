@@ -1,7 +1,7 @@
 <?php
 
 /*
-   Plugin Name: Tay 
+   Plugin Name: Ata 
    Plugin URI: https://github.com/selimkoc/tay_wp
    description: A simple MVC architecture base plugin for WordPress.
    Version: 1.0
@@ -10,7 +10,7 @@
    License: GPL2
    */
 
-namespace Tay;
+namespace Ata;
 
 // CONFIGURATION
 require_once(__DIR__ . '/config/class-config.php');

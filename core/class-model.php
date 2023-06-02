@@ -1,6 +1,6 @@
 <?php
 
-namespace Tay;
+namespace Ata;
 
 class Model
 {
