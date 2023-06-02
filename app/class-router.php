@@ -30,6 +30,34 @@ class Router
     if (!empty($this->apis) && count($this->apis)) new Api_Router($this->apis);
   }
 
+  public function route($route)
+  {
+    $this->route = (object) ['route' => $route, 'parameters' => 0];
+    return $this;
+  }
+  public function param($parameters)
+  {
+    $this->route->parameters = $parameters;
+    return $this;
+  }
+
+  public function call($callback)
+  {
+    $parts = explode('::', $callback);
+    $this->controller($parts[0]);
+    $this->method($parts[1]);
+  }
+
+  public function controller($controller)
+  {
+    $this->route->controller = $controller;
+  }
+  public function method($method)
+  {
+    $this->route->method = $method;
+    $this->routes[] = $this->route;
+  }
+
   protected function create_rule()
   {
     // Add prefix to the route

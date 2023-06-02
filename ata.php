@@ -6,7 +6,7 @@
    description: ATA is a simple MVC architecture base plugin for WordPress.
    Version: 1.0
    Author: Selim Koc
-   Author URI: https://www.selimkoc.com
+   Author URI: https://selimkoc.com
    License: GPL2
    */
 
