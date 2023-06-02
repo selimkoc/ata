@@ -14,13 +14,7 @@ class Post_Router extends Router
   protected function add_post_routes()
   {
 
-    foreach ($this->posts as $route) :
-
-      $this->route = $route;
-
-      $this->add_action();
-
-    endforeach;
+    foreach ($this->posts as &$this->route)  $this->add_action();
   }
 
   protected function add_action()

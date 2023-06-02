@@ -16,47 +16,20 @@ class Custom_Urls_Router extends Router
   {
     add_action('template_include', function ($template) {
 
-      foreach ($this->routes as $r) :
+      foreach ($this->routes as &$this->route) :
 
-        if (isset($r->permission))
-          if ($r->permission === 'guests') {
-            if (is_user_logged_in()) continue;
-          } else if ($r->permission === 'players') {
-            if (!is_user_logged_in()) continue;
-          }
+        if (isset($this->route->permission))
+          if ($this->check_permissions()) continue;
 
-        if (get_query_var($r->route) != false || get_query_var($r->route) != '') {
+        if (get_query_var($this->route->route) != false || get_query_var($this->route->route) != '') {
 
-          $r->class = ATA_PLUGIN_NAMESPACE . "\\" . $r->class;
+          $this->set_controller_name();
 
-          // Catch exception inside construct method of class
-          try {
-            $controller = new $r->class();
-          } catch (\Exception $e) {
+          $this->create_controller();
 
-            global $data;
+          $this->call_method();
 
-            $data =  (object)[];
-
-            $data->message = $e->getMessage();
-
-            return get_template_directory() . '/templates/exception.php';
-          }
-
-          $parameters = explode("/", get_query_var($r->route));
-
-          unset($parameters[0]);
-
-          // Catch exception inside method of class
-          try {
-
-            call_user_func_array([$controller, $r->method], $parameters);
-          } catch (\Exception $e) {
-
-            $controller->handle_exception($e);
-          }
-
-          return get_template_directory() . '/' . $controller->view . '.php';
+          return get_template_directory() . '/' . $this->controller->view . '.php';
         }
       endforeach;
 
@@ -70,15 +43,12 @@ class Custom_Urls_Router extends Router
 
     add_action('init',  function () {
 
-      foreach ($this->routes as $r) :
+      foreach ($this->routes as &$this->route) :
 
-        if (isset($r->permission))
-          if ($r->permission === 'guests')
-            if (is_user_logged_in()) continue;
+        if (isset($this->route->permission))
+          if ($this->check_permissions()) continue;
 
-        $rule = $this->create_rule($r->route, $r->parameters);
-
-        add_rewrite_rule($rule, 'index.php?' . $r->route . '=$matches[1]', 'top');
+        add_rewrite_rule($this->create_rule(), 'index.php?' . $this->route->route . '=$matches[1]', 'top');
 
       endforeach;
     });
@@ -88,17 +58,57 @@ class Custom_Urls_Router extends Router
   {
 
     add_filter('query_vars', function ($query_vars) {
-      foreach ($this->routes as $r) :
 
-        if (isset($r->permission))
-          if ($r->permission === 'guests')
-            if (is_user_logged_in()) continue;
+      foreach ($this->routes as &$this->route) :
 
-        $query_vars[] =  $r->route;
+        if (isset($this->route->permission))
+          if ($this->check_permissions()) continue;
+
+        $query_vars[] =  $this->route;
+
       endforeach;
-
 
       return $query_vars;
     });
+  }
+
+
+  protected function create_controller()
+  {
+    // Catch exception inside construct method of class
+    try {
+      $this->controller = new $this->controller();
+    } catch (\Exception $e) {
+
+      $this->handle_exception($e);
+    }
+  }
+  protected function call_method()
+  {
+
+    // Catch exception inside method of class
+    try {
+
+      $parameters = explode("/", get_query_var($this->route->route));
+
+      unset($parameters[0]);
+
+      call_user_func_array([$this->controller, $this->route->method], $parameters);
+    } catch (\Exception $e) {
+
+      $this->controller->handle_exception($e);
+    }
+  }
+
+  protected function handle_exception($e)
+  {
+
+    global $ata;
+
+    $ata =  (object)[];
+
+    $ata->message = $e->getMessage();
+
+    return get_template_directory() . '/templates/exception.php';
   }
 }

@@ -15,9 +15,7 @@ class Api_Router extends Router
 
     add_action('rest_api_init', function () {
 
-      foreach ($this->apis as $route) :
-
-        $this->route = $route;
+      foreach ($this->apis as &$this->route) :
 
         $this->set_controller_name();
 

@@ -17,9 +17,7 @@ class Ajax_Router extends Router
   protected function add_ajax_routes()
   {
 
-    foreach ($this->ajaxs as $route) :
-
-      $this->route = $route;
+    foreach ($this->ajaxs as &$this->route) :
 
       $this->set_prefix();
 
