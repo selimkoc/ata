@@ -7,11 +7,11 @@ class Ata extends Core
 
   public function __construct()
   {
-    $this->hook('init', 'loadLanguage');
+    $this->hook('init', 'load_language_translations');
   }
 
-  public static function loadLanguage()
+  public static function load_language_translations()
   {
-    load_plugin_textdomain('ata', false, '/ata/languages');
+    load_plugin_textdomain(Config::TEXT_DOMAIN, false, '/ata/languages');
   }
 }

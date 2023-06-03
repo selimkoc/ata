@@ -4,6 +4,10 @@ namespace ATA;
 
 // CONFIGURATION
 require_once(ATA_PLUGIN_DIR . '/config/config.php');
+require_once(ATA_PLUGIN_DIR . '/config/text.php');
+
+// HELPERS
+require_once(ATA_PLUGIN_DIR . '/app/helpers/ata.php');
 
 // BASE CLASSES
 require_once(ATA_PLUGIN_DIR . '/app/base/core.php');

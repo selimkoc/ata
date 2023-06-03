@@ -34,7 +34,6 @@ class Post_Router extends Router
   protected function initiate_controller()
   {
 
-    // Catch exception inside construct method of class
     try {
 
       $this->check_wp_nonce();
@@ -59,8 +58,8 @@ class Post_Router extends Router
   protected function check_wp_nonce()
   {
 
-    if (!isset($_POST['action']) || !isset($_POST['security-verify'])) throw new \Exception(_e("Permission denied", "ata"), 1);
+    if (!isset($_POST['action']) || !isset($_POST['security-verify'])) throw new \Exception(str(Text::NO_PERMISSION), 1);
 
-    if (!wp_verify_nonce($_POST['security-verify'], $this->route->route)) throw new \Exception(_e("Permission denied", "ata"), 1);
+    if (!wp_verify_nonce($_POST['security-verify'], $this->route->route)) throw new \Exception(str(Text::NO_PERMISSION), 1);
   }
 }

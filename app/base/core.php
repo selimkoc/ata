@@ -15,9 +15,9 @@ class Core
    * @param [String] $method , e.g. "myMethod", "my_method"
    * @return void
    */
-  protected function hook($action, $method)
+  protected function hook($action, $method, $priority = 10, $accepted_args = 1)
   {
-    add_action($action, [$this, $method]);
+    add_action($action, [$this, $method], $priority, $accepted_args);
   }
 
   /**
@@ -28,8 +28,8 @@ class Core
    * @return void
    */
 
-  protected function filter($filter, $method)
+  protected function filter($filter, $method, $priority = 10, $accepted_args = 1)
   {
-    add_filter($filter, [$this, $method]);
+    add_filter($filter, [$this, $method], $priority, $accepted_args);
   }
 }
