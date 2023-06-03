@@ -2,16 +2,17 @@
 
 namespace ATA;
 
-class Controller
+class Controller extends Core
 {
   public $view;
-  protected $tay;
+  protected $ata;
 
   protected function __construct()
   {
-    global $tay;
-    $this->tay = &$tay;
-    $this->tay = (object) [];
+    parent::__construct();
+    global $ata;
+    $this->ata = &$ata;
+    $this->ata = (object) [];
   }
 
   /**
@@ -39,14 +40,14 @@ class Controller
 
     // throw exception if no permission and $throw_exception is true
     if ($has_permission == false && $throw_exception == true)
-      throw new \Exception("Permission denied", 1);
+      throw new \Exception(_e("Permission denied", "ata"), 1);
 
     return $has_permission;
   }
 
   public function handle_exception($exception)
   {
-    $this->tay->message = $exception->getMessage();
+    $this->ata->message = $exception->getMessage();
     $this->view = 'exception';
   }
 
@@ -54,11 +55,11 @@ class Controller
   protected function load_user_info($user_id = null)
   {
     if ($user_id === null) :
-      $this->tay->user = wp_get_current_user();
+      $this->ata->user = wp_get_current_user();
     else :
-      $this->tay->current_user =  get_user_by('id', $user_id);
+      $this->ata->current_user =  get_user_by('id', $user_id);
     endif;
 
-    $this->tay->user_id = $this->tay->user->ID;
+    $this->ata->user_id = $this->ata->user->ID;
   }
 }

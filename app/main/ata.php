@@ -2,22 +2,15 @@
 
 namespace ATA;
 
-class Ata
+class Ata extends Core
 {
-  public $view;
-  protected $tay;
 
   public function __construct()
   {
-    $this->bind();
+    $this->hook('init', 'loadLanguage');
   }
 
-  protected function bind()
-  {
-    add_action('init', [$this, 'load_language']);
-  }
-
-  public static function load_language()
+  public static function loadLanguage()
   {
     load_plugin_textdomain('ata', false, '/ata/languages');
   }

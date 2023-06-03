@@ -2,7 +2,7 @@
 
 namespace ATA;
 
-class Model
+class Model extends Core
 {
   // Properties
   public $table;

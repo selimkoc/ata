@@ -5,7 +5,8 @@ namespace ATA;
 // CONFIGURATION
 require_once(ATA_PLUGIN_DIR . '/config/config.php');
 
-// CORE CLASSES
+// BASE CLASSES
+require_once(ATA_PLUGIN_DIR . '/app/base/core.php');
 require_once(ATA_PLUGIN_DIR . '/app/base/controller.php');
 require_once(ATA_PLUGIN_DIR . '/app/base/model.php');
 require_once(ATA_PLUGIN_DIR . '/app/base/api.php');
