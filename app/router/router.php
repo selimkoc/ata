@@ -2,7 +2,7 @@
 
 namespace ATA;
 
-class Router
+class Router extends Core
 {
   public $urls;
   public $posts;
@@ -14,6 +14,14 @@ class Router
   protected $controller;
 
   protected $route;
+
+  protected $hook = null;
+  protected $filter = null;
+
+
+  protected $priority;
+
+  protected $arguments;
 
   protected function __construct()
   {
@@ -56,6 +64,75 @@ class Router
   {
     $this->route->method = $method;
     $this->urls[] = $this->route;
+  }
+
+  public function wp_hook($hook)
+  {
+    $this->hook = $hook;
+    $this->arguments = 1;
+    $this->priority = 10;
+    return $this;
+  }
+  public function wp_filter($filter)
+  {
+    $this->filter = $filter;
+    $this->arguments = 1;
+    $this->priority = 10;
+    return $this;
+  }
+  public function priority($priority)
+  {
+    $this->priority = $priority;
+    return $this;
+  }
+
+  public function arguments($priority)
+  {
+    $this->priority = $priority;
+    return $this;
+  }
+
+  public function static($static)
+  {
+    if ($this->hook !== null) :
+      parent::hook($this->hook, $static, $this->priority, $this->arguments);
+      $this->hook = null;
+    elseif ($this->filter !== null) :
+      parent::filter($this->filter, $static, $this->priority, $this->arguments);
+      $this->filter = null;
+    endif;
+  }
+
+  public function dynamic($dynamic)
+  {
+    if ($this->hook !== null) :
+      parent::hook(
+        $this->hook,
+        function ($args) use ($dynamic) {
+          $dynamic = explode('::', $dynamic);
+          $this->controller = Config::$my_plugin_namespace . "\\" . $dynamic[0];
+          $this->controller =  new $this->controller();
+          $this->controller->{$dynamic[1]}($args);
+        },
+        $this->priority,
+        $this->arguments
+      );
+      $this->hook = null;
+    elseif ($this->filter !== null) :
+      parent::filter(
+        $this->filter,
+        function ($args) use ($dynamic) {
+          $dynamic = explode('::', $dynamic);
+          $this->controller = Config::$my_plugin_namespace . "\\" . $dynamic[0];
+          $this->controller =  new $this->controller();
+          $this->controller->{$dynamic[1]}($args);
+        },
+        $this->priority,
+        $this->arguments
+      );
+
+      $this->filter = null;
+    endif;
   }
 
   protected function create_rule()
