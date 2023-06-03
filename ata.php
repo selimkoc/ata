@@ -14,4 +14,4 @@ namespace ATA;
 
 define('ATA\ATA_PLUGIN_DIR', __DIR__);
 
-require_once(ATA_PLUGIN_DIR . '/app/init.php');
+require_once(ATA_PLUGIN_DIR . '/app/app.php');
