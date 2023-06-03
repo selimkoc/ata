@@ -3,7 +3,7 @@
 namespace ATA;
 
 // CONFIGURATION
-require_once(ATA_PLUGIN_DIR . '/app/config/class-config.php');
+require_once(ATA_PLUGIN_DIR . '/config/class-config.php');
 
 // CORE CLASSES
 require_once(ATA_PLUGIN_DIR . '/app/core/class-controller.php');
