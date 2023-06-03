@@ -14,5 +14,5 @@ require_once(ATA_PLUGIN_DIR . '/app/base/class-api.php');
 require_once(ATA_PLUGIN_DIR . '/app/router/class-router.php');
 require_once(ATA_PLUGIN_DIR . '/app/router/class-ajax.php');
 require_once(ATA_PLUGIN_DIR . '/app/router/class-api.php');
-require_once(ATA_PLUGIN_DIR . '/app/router/class-custom-url.php');
+require_once(ATA_PLUGIN_DIR . '/app/router/class-url.php');
 require_once(ATA_PLUGIN_DIR . '/app/router/class-post.php');

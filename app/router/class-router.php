@@ -4,7 +4,7 @@ namespace ATA;
 
 class Router
 {
-  public $routes;
+  public $urls;
   public $posts;
   public $ajaxs;
   public $apis;
@@ -24,7 +24,7 @@ class Router
 
   public function main()
   {
-    if (!empty($this->routes) && count($this->routes)) new Custom_Url_Router($this->routes);
+    if (!empty($this->urls) && count($this->urls)) new Url_Router($this->urls);
     if (!empty($this->posts) && count($this->posts)) new Post_Router($this->posts);
     if (!empty($this->ajaxs) && count($this->ajaxs)) new Ajax_Router($this->ajaxs);
     if (!empty($this->apis) && count($this->apis)) new Api_Router($this->apis);
@@ -55,7 +55,7 @@ class Router
   public function method($method)
   {
     $this->route->method = $method;
-    $this->routes[] = $this->route;
+    $this->urls[] = $this->route;
   }
 
   protected function create_rule()

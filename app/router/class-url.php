@@ -2,12 +2,12 @@
 
 namespace ATA;
 
-class Custom_Url_Router extends Router
+class Url_Router extends Router
 {
   protected function __construct($routes)
   {
     parent::__construct();
-    $this->routes = $routes;
+    $this->urls = $routes;
     $this->add_template_include();
     $this->add_rewrite_rules();
     $this->add_query_vars();
@@ -17,7 +17,7 @@ class Custom_Url_Router extends Router
   {
     add_action('template_include', function ($template) {
 
-      foreach ($this->routes as &$this->route) :
+      foreach ($this->urls as &$this->route) :
 
         if (isset($this->route->permission))
           if ($this->check_permissions()) continue;
@@ -44,7 +44,7 @@ class Custom_Url_Router extends Router
 
     add_action('init',  function () {
 
-      foreach ($this->routes as &$this->route) :
+      foreach ($this->urls as &$this->route) :
 
         if (isset($this->route->permission))
           if ($this->check_permissions()) continue;
@@ -60,7 +60,7 @@ class Custom_Url_Router extends Router
 
     add_filter('query_vars', function ($query_vars) {
 
-      foreach ($this->routes as &$this->route) :
+      foreach ($this->urls as &$this->route) :
 
         if (isset($this->route->permission))
           if ($this->check_permissions()) continue;
