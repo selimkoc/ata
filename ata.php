@@ -7,6 +7,8 @@
    Version: 1.0
    Author: Selim Koc
    Author URI: https://selimkoc.com
+   Text Domain: ata
+   Domain Path: /languages
    License: GPL2
    */
 
@@ -14,4 +16,6 @@ namespace ATA;
 
 define('ATA\ATA_PLUGIN_DIR', __DIR__);
 
-require_once(ATA_PLUGIN_DIR . '/app/app.php');
+require_once(ATA_PLUGIN_DIR . '/inc.php');
+
+new Ata();

@@ -49,12 +49,9 @@ class Post_Router extends Router
   protected function call_method()
   {
 
-    // Catch exception inside method of class
     try {
-
       call_user_func_array([$this->controller, $this->route->method], array());
     } catch (\Exception $e) {
-
       $this->handle_exception($e);
     }
   }

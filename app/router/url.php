@@ -24,18 +24,24 @@ class Url_Router extends Router
 
         if (get_query_var($this->route->route) != false || get_query_var($this->route->route) != '') {
 
-          $this->set_controller_name();
-
-          $this->initiate_controller();
-
-          $this->call_method();
-
-          return get_template_directory() . '/' . $this->controller->view . '.php';
+          return $this->run_controller();
         }
       endforeach;
 
       return $template;
     });
+  }
+
+  protected function run_controller()
+  {
+
+    $this->set_controller_name();
+
+    $this->initiate_controller();
+
+    $this->call_method();
+
+    return Config::$view_path . $this->controller->view . '.php';
   }
 
 

@@ -42,7 +42,6 @@ class Ajax_Router extends Router
 
     $this->route->class = Config::$my_plugin_namespace . "\\" . $this->route->class;
 
-    // Catch exception inside construct method of class
     try {
       $this->controller = new $this->route->class();
     } catch (\Exception $e) {
@@ -54,7 +53,6 @@ class Ajax_Router extends Router
   protected function call_method()
   {
 
-    // Catch exception inside method of class
     try {
 
       call_user_func_array([$this->controller, $this->route->method], array());
