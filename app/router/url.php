@@ -2,7 +2,7 @@
 
 namespace ATA;
 
-class Url_Router extends Router
+class UrlRouter extends Router
 {
   protected function __construct($routes)
   {

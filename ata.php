@@ -7,7 +7,7 @@
    Version: 1.0
    Author: Selim Koc
    Author URI: https://selimkoc.com
-   Text Domain: ata
+   Texts Domain: ata
    Domain Path: /languages
    License: GPL2
    */

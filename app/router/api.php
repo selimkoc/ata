@@ -2,7 +2,7 @@
 
 namespace ATA;
 
-class Api_Router extends Router
+class ApiRouter extends Router
 {
 
   protected function __construct($apis)

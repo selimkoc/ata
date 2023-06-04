@@ -2,7 +2,7 @@
 
 namespace ATA;
 
-class Text
+class Texts
 {
     const NO_PERMISSION = 'Permission denied';
 }

@@ -15,7 +15,7 @@ class Core
    * @param [String] $method , e.g. "myMethod", "my_method"
    * @return void
    */
-  protected function hook($action, $method, $priority = 10, $accepted_args = 1)
+  protected function on($action, $method, $priority = 10, $accepted_args = 1)
   {
     add_action($action, [$this, $method], $priority, $accepted_args);
   }
@@ -24,7 +24,7 @@ class Core
    * Replace wordpress function with your method
    *
    * @param [String] $filter , e.g.  "wp_nav_menu_args" 
-   * @param [String] $method , e.g. "myMethod", "my_method"
+   * @param [String] $method , e.g. "my_method", "myMethod"
    * @return void
    */
 

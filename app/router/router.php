@@ -15,7 +15,7 @@ class Router extends Core
 
   protected $route;
 
-  protected $hook = null;
+  protected $on = null;
   protected $filter = null;
 
 
@@ -32,10 +32,10 @@ class Router extends Core
 
   public function main()
   {
-    if (!empty($this->urls) && count($this->urls)) new Url_Router($this->urls);
-    if (!empty($this->posts) && count($this->posts)) new Post_Router($this->posts);
-    if (!empty($this->ajaxs) && count($this->ajaxs)) new Ajax_Router($this->ajaxs);
-    if (!empty($this->apis) && count($this->apis)) new Api_Router($this->apis);
+    if (!empty($this->urls) && count($this->urls)) new UrlRouter($this->urls);
+    if (!empty($this->posts) && count($this->posts)) new PostRouter($this->posts);
+    if (!empty($this->ajaxs) && count($this->ajaxs)) new AjaxRouter($this->ajaxs);
+    if (!empty($this->apis) && count($this->apis)) new ApiRouter($this->apis);
   }
 
   public function route($route)
@@ -66,9 +66,9 @@ class Router extends Core
     $this->urls[] = $this->route;
   }
 
-  public function wp_hook($hook)
+  public function wp_hook($on)
   {
-    $this->hook = $hook;
+    $this->on = $on;
     $this->arguments = 1;
     $this->priority = 10;
     return $this;
@@ -94,9 +94,9 @@ class Router extends Core
 
   public function static($static)
   {
-    if ($this->hook !== null) :
-      parent::hook($this->hook, $static, $this->priority, $this->arguments);
-      $this->hook = null;
+    if ($this->on !== null) :
+      parent::on($this->on, $static, $this->priority, $this->arguments);
+      $this->on = null;
     elseif ($this->filter !== null) :
       parent::filter($this->filter, $static, $this->priority, $this->arguments);
       $this->filter = null;
@@ -105,9 +105,9 @@ class Router extends Core
 
   public function dynamic($dynamic)
   {
-    if ($this->hook !== null) :
-      parent::hook(
-        $this->hook,
+    if ($this->on !== null) :
+      parent::on(
+        $this->on,
         function ($args) use ($dynamic) {
           $dynamic = explode('::', $dynamic);
           $this->controller = Config::$my_plugin_namespace . "\\" . $dynamic[0];
@@ -117,7 +117,7 @@ class Router extends Core
         $this->priority,
         $this->arguments
       );
-      $this->hook = null;
+      $this->on = null;
     elseif ($this->filter !== null) :
       parent::filter(
         $this->filter,

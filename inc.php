@@ -2,9 +2,9 @@
 
 namespace ATA;
 
-// CONFIGURATION
+// CONFIGURATIONS
 require_once ATA_PLUGIN_DIR . '/config/config.php';
-require_once ATA_PLUGIN_DIR . '/config/text.php';
+require_once ATA_PLUGIN_DIR . '/config/texts.php';
 
 // HELPERS
 require_once ATA_PLUGIN_DIR . '/app/helpers/ata.php';

@@ -40,7 +40,7 @@ class Controller extends Core
 
     // throw exception if no permission and $throw_exception is true
     if ($has_permission == false && $throw_exception == true)
-      throw new \Exception(str(Text::NO_PERMISSION), 1);
+      throw new \Exception(str(Texts::NO_PERMISSION), 1);
 
     return $has_permission;
   }
@@ -50,7 +50,6 @@ class Controller extends Core
     $this->ata->message = $exception->getMessage();
     $this->view = 'exception';
   }
-
 
   protected function load_user_info($user_id = null)
   {

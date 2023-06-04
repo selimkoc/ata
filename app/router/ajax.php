@@ -2,7 +2,7 @@
 
 namespace ATA;
 
-class Ajax_Router extends Router
+class AjaxRouter extends Router
 {
   private $prefix;
 
