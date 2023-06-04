@@ -40,7 +40,7 @@ class AjaxRouter extends Router
   protected function initiate_controller()
   {
 
-    $this->route->class = Config::$my_plugin_namespace . "\\" . $this->route->class;
+    $this->route->class = Config::$plugin_namespace . "\\" . $this->route->class;
 
     try {
       $this->controller = new $this->route->class();

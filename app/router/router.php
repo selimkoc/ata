@@ -30,7 +30,7 @@ class Router extends Core
     $this->permissions[] = ['rule' => 'members', 'callback' => '!is_user_logged_in'];
   }
 
-  public function main()
+  public function init()
   {
     if (!empty($this->urls) && count($this->urls)) new UrlRouter($this->urls);
     if (!empty($this->posts) && count($this->posts)) new PostRouter($this->posts);
@@ -110,7 +110,7 @@ class Router extends Core
         $this->on,
         function ($args) use ($dynamic) {
           $dynamic = explode('::', $dynamic);
-          $this->controller = Config::$my_plugin_namespace . "\\" . $dynamic[0];
+          $this->controller = Config::$plugin_namespace . "\\" . $dynamic[0];
           $this->controller =  new $this->controller();
           $this->controller->{$dynamic[1]}($args);
         },
@@ -123,7 +123,7 @@ class Router extends Core
         $this->filter,
         function ($args) use ($dynamic) {
           $dynamic = explode('::', $dynamic);
-          $this->controller = Config::$my_plugin_namespace . "\\" . $dynamic[0];
+          $this->controller = Config::$plugin_namespace . "\\" . $dynamic[0];
           $this->controller =  new $this->controller();
           $this->controller->{$dynamic[1]}($args);
         },
@@ -157,7 +157,7 @@ class Router extends Core
 
   protected function set_controller_name()
   {
-    $this->controller = Config::$my_plugin_namespace . "\\" . $this->route->class;
+    $this->controller = Config::$plugin_namespace . "\\" . $this->route->class;
   }
 
   protected function check_permissions()

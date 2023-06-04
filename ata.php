@@ -3,13 +3,13 @@
 /*
    Plugin Name: ATA 
    Plugin URI: https://github.com/selimkoc/ata
-   description: ATA is a simple MVC architecture base plugin for WordPress.
+   description: ATA is a simple base plugin for creating custom MVC WordPress Plugins.
    Version: 1.0
    Author: Selim Koc
    Author URI: https://selimkoc.com
    Texts Domain: ata
    Domain Path: /languages
-   License: GPL2
+   License: GPL3 
    */
 
 namespace ATA;
