@@ -5,7 +5,7 @@ spl_autoload_register(function ($class) {
     //  Autoload only classes inside the plugin namespace
     if (strpos($class, ATA\Config::$plugin_namespace) !== false) :
 
-        $class_types = ['Controller', 'Model', 'Service', 'Helper', 'Api'];
+        $class_types = ['Controller', 'Model', 'Service', 'Api'];
 
         foreach ($class_types as $type) :
 

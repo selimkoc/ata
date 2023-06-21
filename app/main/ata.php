@@ -14,16 +14,16 @@ class Ata extends Core
 
   public static function load_language_translations()
   {
-    load_plugin_textdomain(Config::TEXT_DOMAIN, false, '/ata/languages');
+    load_plugin_textdomain(Config::TEXT_DOMAIN, false, Config::$plugin_folder . '/vendor/ata/languages');
   }
 
   public function load_routes()
   {
     $router = new Router();
 
-    $routes_dir = Config::$plugin_path . "/routes/";
+    $routes_dir = Config::$plugin_path . "/app/routes/";
 
-    inc_folder($routes_dir);
+    foreach (files_in($routes_dir) as $file) require_once $file;
 
     $router->init();
   }

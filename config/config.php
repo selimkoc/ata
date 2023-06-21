@@ -11,4 +11,5 @@ class Config
     public static $plugin_namespace = '';
     public static $view_path = '';
     public static $plugin_path = '';
+    public static $plugin_folder = '';
 }
