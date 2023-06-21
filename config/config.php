@@ -10,4 +10,5 @@ class Config
     public static $wp_ajax_guest_action_prefix = 'wp_ajax_nopriv_';
     public static $plugin_namespace = '';
     public static $view_path = '';
+    public static $plugin_path = '';
 }

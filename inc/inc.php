@@ -25,3 +25,5 @@ require_once ATA_PLUGIN_DIR . '/app/router/post.php';
 // APP
 // ATA Class
 require_once ATA_PLUGIN_DIR . '/app/main/ata.php';
+
+require_once ATA_PLUGIN_DIR . '/app/main/autoloader.php';

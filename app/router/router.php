@@ -25,6 +25,7 @@ class Router extends Core
 
   protected function __construct()
   {
+    parent::__construct();
     // Default permissions 
     $this->permissions[] = ['rule' => 'guests', 'callback' => 'is_user_logged_in'];
     $this->permissions[] = ['rule' => 'members', 'callback' => '!is_user_logged_in'];

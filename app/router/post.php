@@ -19,7 +19,7 @@ class PostRouter extends Router
 
   protected function add_action()
   {
-    add_action(Config::$wp_form_post_action_prefix . $this->route->route, $this->actions());
+    $this->on(Config::$wp_form_post_action_prefix . $this->route->route, 'actions');
   }
 
   protected function actions()

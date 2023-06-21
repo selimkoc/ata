@@ -8,28 +8,25 @@ class UrlRouter extends Router
   {
     parent::__construct();
     $this->urls = $routes;
-    $this->add_template_include();
-    $this->add_rewrite_rules();
-    $this->add_query_vars();
+    $this->on('template_include', 'add_template_include');
+    $this->on('init', 'add_rewrite_rules');
+    $this->filter('query_vars', 'add_query_vars');
   }
 
-  protected function add_template_include()
+  protected function add_template_include($template)
   {
-    add_action('template_include', function ($template) {
+    foreach ($this->urls as &$this->route) :
 
-      foreach ($this->urls as &$this->route) :
+      if (isset($this->route->permission))
+        if ($this->check_permissions()) continue;
 
-        if (isset($this->route->permission))
-          if ($this->check_permissions()) continue;
+      if (get_query_var($this->route->route) != false || get_query_var($this->route->route) != '') {
 
-        if (get_query_var($this->route->route) != false || get_query_var($this->route->route) != '') {
+        return $this->run_controller();
+      }
+    endforeach;
 
-          return $this->run_controller();
-        }
-      endforeach;
-
-      return $template;
-    });
+    return $template;
   }
 
   protected function run_controller()
@@ -48,35 +45,28 @@ class UrlRouter extends Router
   protected function add_rewrite_rules()
   {
 
-    add_action('init',  function () {
+    foreach ($this->urls as &$this->route) :
 
-      foreach ($this->urls as &$this->route) :
+      if (isset($this->route->permission))
+        if ($this->check_permissions()) continue;
 
-        if (isset($this->route->permission))
-          if ($this->check_permissions()) continue;
+      add_rewrite_rule($this->create_rule(), 'index.php?' . $this->route->route . '=$matches[1]', 'top');
 
-        add_rewrite_rule($this->create_rule(), 'index.php?' . $this->route->route . '=$matches[1]', 'top');
-
-      endforeach;
-    });
+    endforeach;
   }
 
-  protected function add_query_vars()
+  protected function add_query_vars($query_vars)
   {
+    foreach ($this->urls as &$this->route) :
 
-    add_filter('query_vars', function ($query_vars) {
+      if (isset($this->route->permission))
+        if ($this->check_permissions()) continue;
 
-      foreach ($this->urls as &$this->route) :
+      $query_vars[] =  $this->route;
 
-        if (isset($this->route->permission))
-          if ($this->check_permissions()) continue;
+    endforeach;
 
-        $query_vars[] =  $this->route;
-
-      endforeach;
-
-      return $query_vars;
-    });
+    return $query_vars;
   }
 
 
