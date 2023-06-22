@@ -9,18 +9,14 @@ class Router extends Core
   public $ajaxs;
   public $apis;
 
+  public $api_ver = '';
+  public $api_method = '';
   protected $permissions;
-
   protected $controller;
-
   protected $route;
-
   protected $on = null;
   protected $filter = null;
-
-
   protected $priority;
-
   protected $arguments;
 
   public function __construct()
@@ -39,11 +35,46 @@ class Router extends Core
     if (!empty($this->apis) && count($this->apis)) new ApiRouter($this->apis);
   }
 
-  public function route($route)
+  public function url($route)
   {
-    $this->route = (object) ['route' => $route, 'parameters' => 0];
+    $this->route = (object) ['route' => $route, 'parameters' => 0, 'type' => 'url'];
     return $this;
   }
+
+  public function ajax($route)
+  {
+    $this->route = (object) ['route' => $route, 'parameters' => 0, 'type' => 'ajax'];
+    return $this;
+  }
+
+  public function post($route)
+  {
+    $this->route = (object) ['route' => $route, 'parameters' => 0, 'type' => 'post'];
+    return $this;
+  }
+
+  public function api($route)
+  {
+    $this->route = (object) ['route' => $route, 'api_version' => $this->api_ver, 'api_method' => $this->api_method, 'type' => 'api'];
+    return $this;
+  }
+  public function api_version($version)
+  {
+    $this->route->api_version = $version;
+    return $this;
+  }
+  public function api_method($method)
+  {
+    $this->route->api_method = $method;
+    return $this;
+  }
+
+  /**
+   * Undocumented function
+   *
+   * @param [Int] $parameters , number of parameters, e.g. 1,2,3
+   * @return 
+   */
   public function param($parameters)
   {
     $this->route->parameters = $parameters;
@@ -53,18 +84,13 @@ class Router extends Core
   public function call($callback)
   {
     $parts = explode('::', $callback);
-    $this->controller($parts[0]);
-    $this->method($parts[1]);
+    $this->route->class = $parts[0];
+    $this->route->method = $parts[1];
+    $this->addRouteToItsArray();
   }
-
-  public function controller($controller)
+  protected function addRouteToItsArray()
   {
-    $this->route->controller = $controller;
-  }
-  public function method($method)
-  {
-    $this->route->method = $method;
-    $this->urls[] = $this->route;
+    $this->{$this->route->type . 's'}[] = $this->route;
   }
 
   public function wp_hook($on)

@@ -9,20 +9,23 @@ class ApiRouter extends Router
   {
     parent::__construct();
     $this->apis = $apis;
-    $this->on('rest_api_init', 'add_api_routes');
+    $this->add_api_routes();
   }
 
 
   protected function add_api_routes()
   {
 
-    foreach ($this->apis as &$this->route) :
+    add_action('rest_api_init', function () {
 
-      $this->set_controller_name();
+      foreach ($this->apis as &$this->route) :
 
-      $this->register_api_endpoint();
+        $this->set_controller_name();
 
-    endforeach;
+        $this->register_api_endpoint();
+
+      endforeach;
+    });
   }
 
 

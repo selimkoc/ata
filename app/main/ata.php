@@ -19,12 +19,12 @@ class Ata extends Core
 
   public function load_routes()
   {
-    $router = new Router();
+    $ata_router = new Router();
 
     $routes_dir = Config::$plugin_path . "/app/routes/";
 
     foreach (files_in($routes_dir) as $file) require_once $file;
 
-    $router->init();
+    $ata_router->init();
   }
 }

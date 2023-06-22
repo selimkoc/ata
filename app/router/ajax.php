@@ -21,12 +21,15 @@ class AjaxRouter extends Router
 
       $this->set_prefix();
 
-      $this->on($this->prefix . $this->route->route, 'actions');
+      $this->add_action();
 
     endforeach;
   }
 
-
+  protected function add_action()
+  {
+    add_action($this->prefix . $this->route->route, [$this, 'actions']);
+  }
   protected function actions()
   {
     $this->initiate_controller();
