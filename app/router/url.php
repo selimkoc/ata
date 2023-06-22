@@ -86,10 +86,29 @@ class UrlRouter extends Router
 
     try {
       $this->controller = new $this->controller();
+
+      $this->initiate_model();
+
+      $this->set_view();
     } catch (\Exception $e) {
 
       $this->handle_exception($e);
     }
+  }
+
+  protected function initiate_model()
+  {
+
+    if (isset($this->route->model)) :
+      $this->controller->model =  '\\' . Config::$plugin_namespace . '\\' . $this->route->model;
+      $this->controller->model = new $this->controller->model();
+    endif;
+  }
+
+  protected function set_view()
+  {
+
+    if (isset($this->route->view)) $this->controller->view = $this->route->view;
   }
   protected function call_method()
   {

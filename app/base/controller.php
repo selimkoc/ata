@@ -4,6 +4,7 @@ namespace ATA;
 
 class Controller extends Core
 {
+  public $model;
   public $view;
   protected $ata;
 

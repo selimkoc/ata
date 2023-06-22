@@ -81,6 +81,18 @@ class Router extends Core
     return $this;
   }
 
+  public function model($model)
+  {
+    $this->route->model = $model;
+    return $this;
+  }
+
+  public function view($view)
+  {
+    $this->route->view = $view;
+    return $this;
+  }
+
   public function call($callback)
   {
     $parts = explode('::', $callback);
