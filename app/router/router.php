@@ -9,8 +9,8 @@ class Router extends Core
   public $ajaxs;
   public $apis;
 
-  public $api_ver = '';
-  public $api_method = '';
+  protected $api_version = '';
+  protected $api_method = '';
   protected $permissions;
   protected $controller;
   protected $route;
@@ -55,17 +55,17 @@ class Router extends Core
 
   public function api($route)
   {
-    $this->route = (object) ['route' => $route, 'api_version' => $this->api_ver, 'api_method' => $this->api_method, 'type' => 'api'];
+    $this->route = (object) ['route' => $route, 'api_version' => $this->api_version, 'api_method' => $this->api_method, 'type' => 'api'];
     return $this;
   }
   public function api_version($version)
   {
-    $this->route->api_version = $version;
+    $this->route->api_version = $this->api_version = $version;
     return $this;
   }
   public function api_method($method)
   {
-    $this->route->api_method = $method;
+    $this->route->api_method = $this->api_method = $method;
     return $this;
   }
 
