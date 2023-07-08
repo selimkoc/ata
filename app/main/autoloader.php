@@ -1,5 +1,7 @@
 <?php
 
+// Autoloader defined at Global level but works for the plugin namespace
+
 spl_autoload_register(function ($class) {
 
     //  Autoload only classes inside the plugin namespace
